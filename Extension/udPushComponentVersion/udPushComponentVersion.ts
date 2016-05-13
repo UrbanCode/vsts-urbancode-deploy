@@ -6,6 +6,8 @@
 
 import tl = require('vsts-task-lib/task');
 import path = require('path');
+import fs = require('fs');
+
 
 var onError = function (errMsg) {
     tl.error(errMsg);
@@ -100,6 +102,28 @@ function runUdClient(args: string[]) {
 }
 
 //TODO -- all of the above is shared code; need to figure out how to actually share it
+var repoRoot: string = path.resolve(tl.getVariable('build.sourcesDirectory') || '');
+tl.debug('repoRoot: ' + repoRoot);
+
+function makeAbsolute(normalizedPath: string): string {
+    tl.debug('makeAbsolute:' + normalizedPath);
+
+    var result = normalizedPath;
+    if (!path.isAbsolute(normalizedPath)) {
+        result = repoRoot + path.sep + normalizedPath;
+        console.log('Relative file path: ' + normalizedPath + ' resolving to: ' + result);
+    }
+    return result;
+}
+
+function lastIndexOf(str, c) {
+    for (var i = str.length - 1; i > -1; i--) {
+        if (str.charAt(i) == c) {
+            return i;
+        }
+    }
+    return -1
+}
 
 var udGlobalCommandArgs = tl.getInput('udGlobalCommandArgs', false);
 
@@ -112,8 +136,19 @@ var udComponentVersionName = tl.getInput('udComponentVersionName', true);
 runUdClient(['createVersion', '-component', udComponentId, '-name', udComponentVersionName]);
 
 //upload specified files
-//TODO -- stub in for now to test
-runUdClient(['addVersionFiles', '-component', udComponentId, '-version', udComponentVersionName, '-base', 'C:/agents/latest/_work/2/s/archives/', '-include', 'test.7z']);
+var fileToUpload = tl.getInput('fileToUpload', false);
+if (fileToUpload != null && fileToUpload.length > 0) {
+    var absolutePath = path.normalize(makeAbsolute(path.normalize(fileToUpload)));
+    var stats = fs.statSync(absolutePath);
+    if (stats.isFile()) {
+        var lastSep = lastIndexOf(absolutePath, path.sep);
+        var dir = absolutePath.substring(0, lastSep);
+        var file = absolutePath.substring(lastSep+1, absolutePath.length);
+        runUdClient(['addVersionFiles', '-component', udComponentId, '-version', udComponentVersionName, '-base', dir, '-include', file]);
+    } else if (stats.isDirectory()) {
+        runUdClient(['addVersionFiles', '-component', udComponentId, '-version', udComponentVersionName, '-base', absolutePath]);
+    }
+}
 
 //create link from component version back to build
 var linkName = '\"VSTS Build: ' + tl.getVariable('Build.BuildNumber') + '\"';

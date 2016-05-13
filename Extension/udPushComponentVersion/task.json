@@ -58,16 +58,12 @@
         "helpMarkDown": "The name UrbanCode Deploy Component Version to create."
       },
       {
-      "name": "uploadFilePatterns",
-      "type": "multiLine",
-      "label": "Upload file patterns",
+      "name": "fileToUpload",
+      "type": "string",
+      "label": "File to upload",
       "defaultValue": "",
-      "required": true,
-      "helpMarkDown": "File paths or patterns of the files to upload. Supports multiple lines of minimatch patterns.",
-      "properties": {
-          "resizable": "true",
-          "rows" : "4"
-        }
+      "required": false,
+      "helpMarkDown": "Optional file or directory to upload.  If a directory is specified, all contained files will be uploaded.  For more upload options, use the IBM UrbanCode Deploy Client (udclient) task in conjection with the [addVersionFiles command](http://www.ibm.com/support/knowledgecenter/SS4GSP_6.2.1/com.ibm.udeploy.api.doc/topics/udclient_addversionfiles.html)"
       },
       {
         "name": "udOptionalTag",

@@ -58,16 +58,12 @@
       "helpMarkDown": "ms-resource:loc.input.help.udComponentVersionName"
     },
     {
-      "name": "uploadFilePatterns",
-      "type": "multiLine",
-      "label": "ms-resource:loc.input.label.uploadFilePatterns",
+      "name": "fileToUpload",
+      "type": "string",
+      "label": "ms-resource:loc.input.label.fileToUpload",
       "defaultValue": "",
-      "required": true,
-      "helpMarkDown": "ms-resource:loc.input.help.uploadFilePatterns",
-      "properties": {
-        "resizable": "true",
-        "rows": "4"
-      }
+      "required": false,
+      "helpMarkDown": "ms-resource:loc.input.help.fileToUpload"
     },
     {
       "name": "udOptionalTag",
