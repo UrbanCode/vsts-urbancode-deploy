@@ -35,9 +35,9 @@
     },
     {
       "name": "udGlobalCommandArgs",
-      "type": "string",
+      "type": "multiLine",
       "label": "ms-resource:loc.input.label.udGlobalCommandArgs",
-      "defaultValue": "",
+      "defaultValue": "--verbose",
       "required": false,
       "helpMarkDown": "ms-resource:loc.input.help.udGlobalCommandArgs"
     },

@@ -76,8 +76,6 @@ function runUdClient(args: string[]) {
     java.arg('-jar');
     java.arg(udClientJarPath);
     //udClient args
-    //verbose helps tremendously if you have your udclient commands wrong
-    java.arg('--verbose');
     java.arg('-weburl');
     java.arg(serverEndpointUrl);
     if (token == null) {
@@ -101,7 +99,6 @@ function runUdClient(args: string[]) {
 
 //TODO -- all of the above is shared code; need to figure out how to actually share it
 
-// command are multiline so variable substition works.
 var udClientCommandArgs: string[] = tl.getDelimitedInput('udClientCommandArgs', '\n', true);
 
 runUdClient(udClientCommandArgs);

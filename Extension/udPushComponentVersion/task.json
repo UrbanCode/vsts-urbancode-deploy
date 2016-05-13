@@ -35,9 +35,9 @@
       },
       {
         "name": "udGlobalCommandArgs",
-        "type": "string",
+        "type": "multiLine",
         "label": "Global Arguments",
-        "defaultValue": "",
+        "defaultValue": "--verbose",
         "required": false,
         "helpMarkDown": "Global arguments to be used by the underlying udclient, e.g. proxy information, for details, see: http://www.ibm.com/support/knowledgecenter/SS4GSP_6.2.1/com.ibm.udeploy.reference.doc/topics/cli_ch.html"
       },

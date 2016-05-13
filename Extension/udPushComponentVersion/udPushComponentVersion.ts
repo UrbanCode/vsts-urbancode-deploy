@@ -79,7 +79,6 @@ function runUdClient(args: string[]) {
     java.arg(udClientJarPath);
     //udClient args
     //verbose helps tremendously if you have your udclient commands wrong
-    java.arg('--verbose');
     java.arg('-weburl');
     java.arg(serverEndpointUrl);
     if (token == null) {
@@ -92,6 +91,13 @@ function runUdClient(args: string[]) {
         java.arg('-authtoken');
         java.arg(token);
     }
+
+    if (udGlobalCommandArgs != null) {
+        for (var i = 0; i < udGlobalCommandArgs.length; i++) {
+            java.arg(udGlobalCommandArgs[i]);
+        }
+    }
+
     for (var i = 0; i < args.length; i++) {
         java.arg(args[i]);
     }
@@ -125,9 +131,7 @@ function lastIndexOf(str, c) {
     return -1
 }
 
-var udGlobalCommandArgs = tl.getInput('udGlobalCommandArgs', false);
-
-//TODO -- add these args to all calls.
+var udGlobalCommandArgs: string[] = tl.getDelimitedInput('udGlobalCommandArgs', '\n', false);
 
 //Create a new component version
 var udComponentId = tl.getInput('udComponentId', true);

@@ -37,7 +37,7 @@
         "name": "udClientCommandArgs",
         "type": "multiLine",
         "label": "Command arguments",
-        "defaultValue": "",
+        "defaultValue": "--verbose",
         "required": true,
         "helpMarkDown": "The command arguments to execute.  For details, refer to: http://www.ibm.com/support/knowledgecenter/SS4GSP_6.2.1/com.ibm.udeploy.reference.doc/topics/cli_ch.html",
         "properties": {

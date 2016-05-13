@@ -37,7 +37,7 @@
       "name": "udClientCommandArgs",
       "type": "multiLine",
       "label": "ms-resource:loc.input.label.udClientCommandArgs",
-      "defaultValue": "",
+      "defaultValue": "--verbose",
       "required": true,
       "helpMarkDown": "ms-resource:loc.input.help.udClientCommandArgs",
       "properties": {
