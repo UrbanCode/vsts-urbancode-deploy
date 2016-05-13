@@ -34,6 +34,14 @@
         "helpMarkDown": "Select the service endpoint for your IBM UrbanCode Deploy server instance.  To create one, click the Manage link and create a new Generic Service Endpoint, enter the IBM UrbanCode Deploy server URL for the server URL, e.g. http://ucdserver.example.com:8080, and required credentials.  To use an authorization token, leave the user name blank, and enter the token in the password field."
       },
       {
+        "name": "udGlobalCommandArgs",
+        "type": "string",
+        "label": "Global Arguments",
+        "defaultValue": "",
+        "required": false,
+        "helpMarkDown": "Global arguments to be used by the underlying udclient, e.g. proxy information, for details, see: http://www.ibm.com/support/knowledgecenter/SS4GSP_6.2.1/com.ibm.udeploy.reference.doc/topics/cli_ch.html"
+      },
+      {
         "name": "udComponentId",
         "type": "string",
         "label": "Component Name or Id",

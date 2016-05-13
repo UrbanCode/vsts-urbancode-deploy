@@ -6,6 +6,8 @@
   "loc.group.displayName.advanced": "Advanced",
   "loc.input.label.serverEndpoint": "IBM UrbanCode Deploy service endpoint",
   "loc.input.help.serverEndpoint": "Select the service endpoint for your IBM UrbanCode Deploy server instance.  To create one, click the Manage link and create a new Generic Service Endpoint, enter the IBM UrbanCode Deploy server URL for the server URL, e.g. http://ucdserver.example.com:8080, and required credentials.  To use an authorization token, leave the user name blank, and enter the token in the password field.",
+  "loc.input.label.udGlobalCommandArgs": "Global Arguments",
+  "loc.input.help.udGlobalCommandArgs": "Global arguments to be used by the underlying udclient, e.g. proxy information, for details, see: http://www.ibm.com/support/knowledgecenter/SS4GSP_6.2.1/com.ibm.udeploy.reference.doc/topics/cli_ch.html",
   "loc.input.label.udComponentId": "Component Name or Id",
   "loc.input.help.udComponentId": "The name or id of the UrbanCode Deploy Component to update.",
   "loc.input.label.udComponentVersionName": "Component Version",

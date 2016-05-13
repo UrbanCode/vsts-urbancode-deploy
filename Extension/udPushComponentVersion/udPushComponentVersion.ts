@@ -79,9 +79,14 @@ function runUdClient(args: string[]) {
 
 //TODO -- all of the above is shared code; need to figure out how to actually share it
 
+var udGlobalCommandArgs = tl.getInput('udGlobalCommandArgs', false);
+
+//TODO -- add these args to all calls.
+
 //Create a new component version
 var udComponentId = tl.getInput('udComponentId', true);
 var udComponentVersionName = tl.getInput('udComponentVersionName', true);
+
 runUdClient(['createVersion', '-component', udComponentId, '-name', udComponentVersionName]);
 
 //upload specified files
@@ -94,7 +99,7 @@ var link = '\"' + tl.getVariable('System.TeamFoundationCollectionUri') + tl.getV
 runUdClient(['addVersionLink', '-component', udComponentId, '-version', udComponentVersionName, '-linkName', linkName, '-link', link]);
 
 //tag the component version
-var udOptionalTag = tl.getInput('udOptionalTag');
+var udOptionalTag = tl.getInput('udOptionalTag', false);
 if (udOptionalTag != null && udOptionalTag.length > 0) {
     runUdClient(['addVersionStatus', '-component', udComponentId, '-version', udComponentVersionName, '-status', udOptionalTag]);
 }
