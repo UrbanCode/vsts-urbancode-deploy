@@ -1,0 +1,23 @@
+{
+  "loc.friendlyName": "IBM UrbanCode Deploy Component Version",
+  "loc.helpMarkDown": "",
+  "loc.description": "Deploy a new version of your IBM UrbanCode Deploy component, upload files, link back to build, and tag",
+  "loc.instanceNameFormat": "UrbanCode Deploy $(componentVersion)",
+  "loc.group.displayName.advanced": "Advanced",
+  "loc.input.label.serverEndpoint": "IBM UrbanCode Deploy service endpoint",
+  "loc.input.help.serverEndpoint": "Select the service endpoint for your IBM UrbanCode Deploy server instance.  To create one, click the Manage link and create a new Generic Service Endpoint, enter the IBM UrbanCode Deploy server URL for the server URL, e.g. http://ucdserver.example.com:8080, and required credentials.  To use an authorization token, leave the user name blank, and enter the token in the password field.",
+  "loc.input.label.udGlobalCommandArgs": "Global Arguments",
+  "loc.input.help.udGlobalCommandArgs": "Global arguments to be used by the underlying udclient, e.g. proxy information, for details, see: http://www.ibm.com/support/knowledgecenter/SS4GSP_6.2.1/com.ibm.udeploy.reference.doc/topics/cli_ch.html",
+  "loc.input.label.udComponentId": "Component Name or Id",
+  "loc.input.help.udComponentId": "The name or id of the UrbanCode Deploy Component to update.",
+  "loc.input.label.udComponentVersionName": "Component Version",
+  "loc.input.help.udComponentVersionName": "The name UrbanCode Deploy Component Version to create.",
+  "loc.input.label.fileToUpload": "File to upload",
+  "loc.input.help.fileToUpload": "Optional file or directory to upload.  If a directory is specified, all contained files will be uploaded.  For more upload options, use the IBM UrbanCode Deploy Client (udclient) task in conjection with the [addVersionFiles command](http://www.ibm.com/support/knowledgecenter/SS4GSP_6.2.1/com.ibm.udeploy.api.doc/topics/udclient_addversionfiles.html)",
+  "loc.input.label.udOptionalTag": "Component Version Tag",
+  "loc.input.help.udOptionalTag": "Optionally, tag the Component Version.",
+  "loc.input.label.workingDirectory": "Working Directory",
+  "loc.input.help.workingDirectory": "The working directory to run the IBM UrbanCode Deploy Client commands.",
+  "loc.input.label.udclientLocation": "IBM UrbanCode Deploy Client location",
+  "loc.input.help.udclientLocation": "Optionally specify the location to the IBM UrbanCode Deploy Client (udclient). If the location is not specified, udclient needs to be in the PATH."
+}

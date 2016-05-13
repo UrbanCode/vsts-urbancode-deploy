@@ -1,0 +1,15 @@
+{
+  "loc.friendlyName": "IBM UrbanCode Deploy Client (udclient)",
+  "loc.helpMarkDown": "Run a command using the IBM UrbanCode Deploy Client.  Refer to: http://www.ibm.com/support/knowledgecenter/SS4GSP_6.2.1/com.ibm.udeploy.reference.doc/topics/cli_ch.html",
+  "loc.description": "Run a command using the IBM UrbanCode Deploy Client command line interface (udclient).",
+  "loc.instanceNameFormat": "udclient $(udclientCommand)",
+  "loc.group.displayName.advanced": "Advanced",
+  "loc.input.label.serverEndpoint": "IBM UrbanCode Deploy service endpoint",
+  "loc.input.help.serverEndpoint": "Select the service endpoint for your IBM UrbanCode Deploy server instance.  To create one, click the Manage link and create a new Generic Service Endpoint, enter the IBM UrbanCode Deploy server URL for the server URL, e.g. http://ucdserver.example.com:8080, and required credentials.  To use an authorization token, leave the user name blank, and enter the token in the password field.",
+  "loc.input.label.udClientCommandArgs": "Command arguments",
+  "loc.input.help.udClientCommandArgs": "The command arguments to execute.  For details, refer to: http://www.ibm.com/support/knowledgecenter/SS4GSP_6.2.1/com.ibm.udeploy.reference.doc/topics/cli_ch.html",
+  "loc.input.label.workingDirectory": "Working Directory",
+  "loc.input.help.workingDirectory": "The working directory to run the IBM UrbanCode Deploy Client commands.",
+  "loc.input.label.udClientLocation": "IBM UrbanCode Deploy Client location",
+  "loc.input.help.udClientLocation": "Optionally specify the location to the IBM UrbanCode Deploy Client (udclient). If the location is not specified, udclient needs to be in the PATH."
+}
