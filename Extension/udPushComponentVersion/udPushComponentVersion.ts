@@ -5,6 +5,7 @@
 /// <reference path="../../definitions/vsts-task-lib.d.ts" />
 
 import tl = require('vsts-task-lib/task');
+import path = require('path');
 
 var onError = function (errMsg) {
     tl.error(errMsg);
@@ -51,27 +52,48 @@ if (udClientLocation != tl.getVariable('build.sourcesDirectory')) {
     }
 }
 
+// based on the udClientPath location, figure out the jar path; it's laid out like this on disk:
+// udclient     -- shell script
+// udclient.cmd -- windows script
+// udclient.jar -- actual jar both those scripts call into
+function locateUdClientJar(udClientPath) {
+    // search backwards nearest path separator
+    for (var i = udClientPath.length - 1; i > -1; i--) {
+        if (udClientPath.charAt(i) == path.sep) {
+            return udClientPath.substring(0, i + 1) + 'udclient.jar';
+        }
+    }
+}
+
+var udClientJarPath = locateUdClientJar(udClientPath);
+
+//TODO add some error messages in case this is not set correctly
+var javaHome = process.env.JAVA_HOME;
+var javaLocation = javaHome + path.sep + 'bin' + path.sep + 'java';
+
 function runUdClient(args: string[]) {
-    var udClient = tl.createToolRunner(udClientPath);
+    var java = tl.createToolRunner(javaLocation);
+    java.arg('-jar');
+    java.arg(udClientJarPath);
+    //udClient args
     //verbose helps tremendously if you have your udclient commands wrong
-    udClient.arg('--verbose');
-    udClient.arg('-weburl');
-    udClient.arg(serverEndpointUrl);
+    java.arg('--verbose');
+    java.arg('-weburl');
+    java.arg(serverEndpointUrl);
     if (token == null) {
-        udClient.arg('-username');
-        udClient.arg(username);
-        udClient.arg('-password');
-        udClient.arg(password);
-    } else {
-        udClient.arg('-authtoken');
-        udClient.arg(token);
+        java.arg('-username');
+        java.arg(username);
+        java.arg('-password');
+        java.arg(password);
     }
-
+    else {
+        java.arg('-authtoken');
+        java.arg(token);
+    }
     for (var i = 0; i < args.length; i++) {
-        udClient.arg(args[i]);
+        java.arg(args[i]);
     }
-
-    var execResult = udClient.execSync();
+    var execResult = java.execSync();
     if (execResult.code != tl.TaskResult.Succeeded) {
         tl.setResult(tl.TaskResult.Failed, execResult.error.message);
     }

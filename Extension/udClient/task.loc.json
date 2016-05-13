@@ -42,7 +42,7 @@
       "helpMarkDown": "ms-resource:loc.input.help.udClientCommandArgs",
       "properties": {
         "resizable": "true",
-        "rows": "4"
+        "rows": "10"
       }
     },
     {
