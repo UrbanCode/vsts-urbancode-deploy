@@ -1,0 +1,97 @@
+{
+    "id": "ac998cef-0be9-470f-955c-cca3afe31485",
+    "name": "udPushComponentVersion",
+    "friendlyName": "IBM UrbanCode Deploy Component Version",
+    "description": "Deploy a new version of your IBM UrbanCode Deploy component, upload files, link back to build, and tag",
+    "helpMarkDown": "",
+    "category": "Deploy",
+    "visibility": [
+        "Build",
+        "Release"
+    ],
+    "author": "Microsoft",
+    "demands": [],
+    "version": {
+        "Major": 0,
+        "Minor": 1,
+        "Patch": 0
+    },
+    "groups": [
+        {
+          "name": "advanced",
+          "displayName": "Advanced",
+          "isExpanded": false
+        }
+    ],
+    "instanceNameFormat": "UrbanCode Deploy $(componentVersion)",
+    "inputs": [
+      {
+        "name": "serverEndpoint",
+        "type": "connectedService:Generic",
+        "label": "IBM UrbanCode Deploy service endpoint",
+        "defaultValue": "",
+        "required": true,
+        "helpMarkDown": "Select the service endpoint for your IBM UrbanCode Deploy server instance.  To create one, click the Manage link and create a new Generic Service Endpoint, enter the IBM UrbanCode Deploy server URL for the server URL, e.g. http://ucdserver.example.com:8080, and required credentials.  To use an authorization token, leave the user name blank, and enter the token in the password field."
+      },
+      {
+        "name": "udComponentId",
+        "type": "string",
+        "label": "Component Name or Id",
+        "defaultValue": "",
+        "required": true,
+        "helpMarkDown": "The name or id of the UrbanCode Deploy Component to update."
+      },
+      {
+        "name": "udComponentVersionName",
+        "type": "string",
+        "label": "Component Version",
+        "defaultValue": "",
+        "required": true,
+        "helpMarkDown": "The name UrbanCode Deploy Component Version to create."
+      },
+      {
+      "name": "uploadFilePatterns",
+      "type": "multiLine",
+      "label": "Upload file patterns",
+      "defaultValue": "",
+      "required": true,
+      "helpMarkDown": "File paths or patterns of the files to upload. Supports multiple lines of minimatch patterns.",
+      "properties": {
+          "resizable": "true",
+          "rows" : "4"
+        }
+      },
+      {
+        "name": "udOptionalTag",
+        "type": "string",
+        "label": "Component Version Tag",
+        "defaultValue": "",
+        "required": false,
+        "helpMarkDown": "Optionally, tag the Component Version."
+      },
+      {
+        "name": "workingDirectory",
+        "type": "filePath",
+        "label": "Working Directory",
+        "defaultValue": "",
+        "required": false,
+        "helpMarkDown": "The working directory to run the IBM UrbanCode Deploy Client commands.",
+        "groupName": "advanced"
+      },
+      {
+        "name": "udclientLocation",
+        "type": "filePath",
+        "label": "IBM UrbanCode Deploy Client location",
+        "defaultValue": "",
+        "required": false,
+        "helpMarkDown": "Optionally specify the location to the IBM UrbanCode Deploy Client (udclient). If the location is not specified, udclient needs to be in the PATH.",
+        "groupName": "advanced"
+      }
+    ],
+    "execution": {
+        "Node": {
+            "target": "udPushComponentVersion.js",
+            "argumentFormat": ""
+        }
+    }
+}
