@@ -21,6 +21,9 @@ Use the IBM UrbanCode Deploy Client task to run any command supported by the [IB
 
 ![UrbanCode Deploy Build Task](images/udClientTask.png)
 
+## Install the [IBM UrbanCode Deploy Command-line client](http://www.ibm.com/support/knowledgecenter/SS4GSP_6.2.1/com.ibm.udeploy.reference.doc/topics/cli_ch.html) on your build agent.
+The task will look for the IBM UrbanCode Deploy Command-line client on the path of your build machine.  An alternate mechanism is to explicitly specify the location in the Advanced section of the task.  This can be a local path on the build machine.  You can also add udclient.jar to source control, and specify the path to it.  
+
 ## Learn more
 More documentation is available [here](https://github.com/Microsoft/vsts-urbancode-deploy).
 
