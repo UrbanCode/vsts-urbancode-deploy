@@ -3,7 +3,7 @@
     "id": "urbancode-deploy-build-extension",
     "name": "IBM UrbanCode Deploy",
     "version": "0.1.0",
-    "publisher": "jasonshollms",
+    "publisher": "ms-vsts",
     "description": "IBM UrbanCode Deploy build extension to push applications to your IBM UrbanCode Deploy instance.",
     "public": false,
     "categories": [
