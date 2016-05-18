@@ -197,8 +197,8 @@ if (fileToUpload != null && fileToUpload.length > 0) {
 }
 
 //create link from component version back to build
-var linkName = '\"VSTS Build: ' + tl.getVariable('Build.BuildNumber') + '\"';
-var link = '\"' + tl.getVariable('System.TeamFoundationCollectionUri') + tl.getVariable('System.TeamProject') + '/_build?_a=summary&buildId=' + tl.getVariable('Build.BuildId') + '\"';
+var linkName = 'VSTS Build: ' + tl.getVariable('Build.BuildNumber');
+var link = tl.getVariable('System.TeamFoundationCollectionUri') + tl.getVariable('System.TeamProject') + '/_build?_a=summary&buildId=' + tl.getVariable('Build.BuildId');
 runUdClient(udGlobalCommandArgs, ['addVersionLink', '-component', udComponentId, '-version', udComponentVersionName, '-linkName', linkName, '-link', link]);
 
 //tag the component version
