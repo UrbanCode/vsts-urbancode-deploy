@@ -34,6 +34,12 @@ if (udClientLocation != tl.getVariable('build.sourcesDirectory')) {
     //custom tool location for udclient was specified
     tl.debug('udclient location specified explicitly by task: ' + udClientLocation);
     udClientPath = udClientLocation;
+    try {
+        var stats = fs.statSync(udClientPath);
+    }
+    catch (error) {
+        onError('udclient location: ' + udClientPath + ' is not accessible: ' + error);
+    }
 }
 else {
     //check the path for udclient
@@ -46,28 +52,70 @@ else {
         onError('udclient location is neither specifified explicitly nor found in the PATH. Install the udclient: ' + serverEndpointUrl + '/#tools and specify the install location in the task or add it to the PATH on the build agent machine.');
     }
 }
+function endsWith(str, end) {
+    var index = str.indexOf(end);
+    if (index == -1) {
+        return false;
+    }
+    return index == str.length - end.length;
+}
 // based on the udClientPath location, figure out the jar path; it's laid out like this on disk:
 // udclient     -- shell script
 // udclient.cmd -- windows script
 // udclient.jar -- actual jar both those scripts call into
 function locateUdClientJar(udClientPath) {
-    // search backwards nearest path separator
-    for (var i = udClientPath.length - 1; i > -1; i--) {
-        if (udClientPath.charAt(i) == path.sep) {
-            return udClientPath.substring(0, i + 1) + 'udclient.jar';
+    tl.debug('resolving udclient.jar from udClientPath: ' + udClientPath);
+    try {
+        var stats = fs.statSync(udClientPath);
+        if (stats.isFile()) {
+            if (udClientPath.endsWith('udclient.jar')) {
+                return udClientPath;
+            }
+            else if (udClientPath.endsWith('udclient')) {
+                return udClientPath + '.jar';
+            }
+            else if (udClientPath.endsWith('udclient.cmd')) {
+                return udClientPath.substring(0, udClientPath.length - 3) + 'jar';
+            }
+        }
+        else if (stats.isDirectory()) {
+            return udClientPath + path.sep + 'udclient.jar';
         }
     }
+    catch (error) {
+        onError('unable to resolve udclient.jar from udClientPath: ' + udClientPath + ' ' + error);
+    }
+    onError('unable to resolve udclient.jar from udClientPath: ' + udClientPath);
 }
 var udClientJarPath = locateUdClientJar(udClientPath);
-//TODO add some error messages in case this is not set correctly
+try {
+    var stats = fs.statSync(udClientJarPath);
+    if (stats.isFile()) {
+        tl.debug('successfully resolved udclient.jar: ' + udClientJarPath);
+    }
+    else {
+        onError('resolved udclient.jar: ' + udClientJarPath + ' is not a file.');
+    }
+}
+catch (error) {
+    onError('resolved udclient.jar: ' + udClientJarPath + ' is not a file. ' + error);
+}
 var javaHome = process.env.JAVA_HOME;
-var javaLocation = javaHome + path.sep + 'bin' + path.sep + 'java';
-function runUdClient(args) {
+var javaLocation;
+if (typeof javaHome == "undefined") {
+    javaLocation = tl.which('java');
+    tl.debug('JAVA_HOME environment variable is undefined, using java from PATH.');
+}
+else {
+    tl.debug('using java from JAVA_HOME environment variable.');
+    javaLocation = javaHome + path.sep + 'bin' + path.sep + 'java';
+}
+tl.debug('java location = ' + javaLocation);
+function runUdClient(globalArgs, args) {
     var java = tl.createToolRunner(javaLocation);
     java.arg('-jar');
     java.arg(udClientJarPath);
     //udClient args
-    //verbose helps tremendously if you have your udclient commands wrong
     java.arg('-weburl');
     java.arg(serverEndpointUrl);
     if (token == null) {
@@ -80,9 +128,9 @@ function runUdClient(args) {
         java.arg('-authtoken');
         java.arg(token);
     }
-    if (udGlobalCommandArgs != null) {
-        for (var i = 0; i < udGlobalCommandArgs.length; i++) {
-            java.arg(udGlobalCommandArgs[i]);
+    if (globalArgs != null) {
+        for (var i = 0; i < globalArgs.length; i++) {
+            java.arg(globalArgs[i]);
         }
     }
     for (var i = 0; i < args.length; i++) {
@@ -117,7 +165,7 @@ var udGlobalCommandArgs = tl.getDelimitedInput('udGlobalCommandArgs', '\n', fals
 //Create a new component version
 var udComponentId = tl.getInput('udComponentId', true);
 var udComponentVersionName = tl.getInput('udComponentVersionName', true);
-runUdClient(['createVersion', '-component', udComponentId, '-name', udComponentVersionName]);
+runUdClient(udGlobalCommandArgs, ['createVersion', '-component', udComponentId, '-name', udComponentVersionName]);
 //upload specified files
 var fileToUpload = tl.getInput('fileToUpload', false);
 if (fileToUpload != null && fileToUpload.length > 0) {
@@ -127,18 +175,18 @@ if (fileToUpload != null && fileToUpload.length > 0) {
         var lastSep = lastIndexOf(absolutePath, path.sep);
         var dir = absolutePath.substring(0, lastSep);
         var file = absolutePath.substring(lastSep + 1, absolutePath.length);
-        runUdClient(['addVersionFiles', '-component', udComponentId, '-version', udComponentVersionName, '-base', dir, '-include', file]);
+        runUdClient(udGlobalCommandArgs, ['addVersionFiles', '-component', udComponentId, '-version', udComponentVersionName, '-base', dir, '-include', file]);
     }
     else if (stats.isDirectory()) {
-        runUdClient(['addVersionFiles', '-component', udComponentId, '-version', udComponentVersionName, '-base', absolutePath]);
+        runUdClient(udGlobalCommandArgs, ['addVersionFiles', '-component', udComponentId, '-version', udComponentVersionName, '-base', absolutePath]);
     }
 }
 //create link from component version back to build
-var linkName = '\"VSTS Build: ' + tl.getVariable('Build.BuildNumber') + '\"';
-var link = '\"' + tl.getVariable('System.TeamFoundationCollectionUri') + tl.getVariable('System.TeamProject') + '/_build?_a=summary&buildId=' + tl.getVariable('Build.BuildId') + '\"';
-runUdClient(['addVersionLink', '-component', udComponentId, '-version', udComponentVersionName, '-linkName', linkName, '-link', link]);
+var linkName = 'VSTS Build: ' + tl.getVariable('Build.BuildNumber');
+var link = tl.getVariable('System.TeamFoundationCollectionUri') + tl.getVariable('System.TeamProject') + '/_build?_a=summary&buildId=' + tl.getVariable('Build.BuildId');
+runUdClient(udGlobalCommandArgs, ['addVersionLink', '-component', udComponentId, '-version', udComponentVersionName, '-linkName', linkName, '-link', link]);
 //tag the component version
 var udOptionalTag = tl.getInput('udOptionalTag', false);
 if (udOptionalTag != null && udOptionalTag.length > 0) {
-    runUdClient(['addVersionStatus', '-component', udComponentId, '-version', udComponentVersionName, '-status', udOptionalTag]);
+    runUdClient(udGlobalCommandArgs, ['addVersionStatus', '-component', udComponentId, '-version', udComponentVersionName, '-status', udOptionalTag]);
 }
