@@ -3,7 +3,7 @@
     "name": "udClient",
     "friendlyName": "IBM UrbanCode Deploy Client (udclient)",
     "description": "Run a command using the IBM UrbanCode Deploy Client command line interface (udclient).",
-    "helpMarkDown": "Run a command using the IBM UrbanCode Deploy Client.  Refer to: http://www.ibm.com/support/knowledgecenter/SS4GSP_6.2.1/com.ibm.udeploy.reference.doc/topics/cli_ch.html",
+    "helpMarkDown": "Run a command using the [IBM UrbanCode Deploy Client](http://www.ibm.com/support/knowledgecenter/SS4GSP_6.2.1/com.ibm.udeploy.reference.doc/topics/cli_ch.html)<br/>For more details about this task, to report bugs, or to contribute, refer to: [https://github.com/Microsoft/vsts-urbancode-deploy](https://github.com/Microsoft/vsts-urbancode-deploy)",
     "category": "Deploy",
     "visibility": [
         "Build",
@@ -39,7 +39,7 @@
         "label": "Command arguments",
         "defaultValue": "--verbose",
         "required": true,
-        "helpMarkDown": "The command arguments to execute.  For details, refer to: http://www.ibm.com/support/knowledgecenter/SS4GSP_6.2.1/com.ibm.udeploy.reference.doc/topics/cli_ch.html",
+        "helpMarkDown": "The command arguments to execute.  [Variables](https://www.visualstudio.com/docs/build/define/variables) might be helpful here.  For best results (for debugging purposes), enter each argument on a new line, for example, to create a new version for the 'Widget' component using the build number, enter:<br/>`createVersion`<br/>`-component`</br>`Widget`<br/>`-name`</br>`$(Build.BuildId)`<br>For command details, refer to: http://www.ibm.com/support/knowledgecenter/SS4GSP_6.2.1/com.ibm.udeploy.reference.doc/topics/cli_ch.html",
         "properties": {
           "resizable": "true",
           "rows" : "10"

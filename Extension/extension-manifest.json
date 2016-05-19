@@ -5,7 +5,7 @@
     "version": "0.1.0",
     "publisher": "ms-vsts",
     "description": "IBM UrbanCode Deploy build extension to push applications to your IBM UrbanCode Deploy instance.",
-    "public": false,
+    "public": true,
     "categories": [
         "Build and release"
     ],
@@ -45,15 +45,25 @@
         }
     ],
     "contributions": [
-        {
-            "id": "udclient-task",
-            "type": "ms.vss-distributed-task.task",
-            "targets": [
-                "ms.vss-distributed-task.tasks"
-            ],
-            "properties": {
-                "name": "udClient"
-            }
+      {
+        "id": "udclient-task",
+        "type": "ms.vss-distributed-task.task",
+        "targets": [
+          "ms.vss-distributed-task.tasks"
+        ],
+        "properties": {
+          "name": "udClient"
         }
+      },
+      {
+        "id": "udpushcomponentversion-task",
+        "type": "ms.vss-distributed-task.task",
+        "targets": [
+          "ms.vss-distributed-task.tasks"
+        ],
+        "properties": {
+          "name": "udPushComponentVersion"
+        }
+      }
     ]
 }

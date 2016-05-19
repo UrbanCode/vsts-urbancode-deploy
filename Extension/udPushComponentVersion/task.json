@@ -3,7 +3,7 @@
     "name": "udPushComponentVersion",
     "friendlyName": "IBM UrbanCode Deploy Component Version",
     "description": "Deploy a new version of your IBM UrbanCode Deploy component, upload files, link back to build, and tag",
-    "helpMarkDown": "",
+    "helpMarkDown": "Deploy a new version of your IBM UrbanCode Deploy component, upload files, link back to build, and tag using the using the [IBM UrbanCode Deploy Client](http://www.ibm.com/support/knowledgecenter/SS4GSP_6.2.1/com.ibm.udeploy.reference.doc/topics/cli_ch.html)<br/>For more details about this task, to report bugs, or to contribute, refer to: [https://github.com/Microsoft/vsts-urbancode-deploy](https://github.com/Microsoft/vsts-urbancode-deploy)",
     "category": "Deploy",
     "visibility": [
         "Build",
@@ -55,7 +55,7 @@
         "label": "Component Version",
         "defaultValue": "",
         "required": true,
-        "helpMarkDown": "The name UrbanCode Deploy Component Version to create."
+        "helpMarkDown": "The name UrbanCode Deploy Component Version to create.  [Variables](https://www.visualstudio.com/docs/build/define/variables) might be helpful here, e.g. $(Build.BuildNumber)"
       },
       {
       "name": "fileToUpload",
@@ -63,7 +63,7 @@
       "label": "File to upload",
       "defaultValue": "",
       "required": false,
-      "helpMarkDown": "Optional file or directory to upload.  If a directory is specified, all contained files will be uploaded.  For more upload options, use the IBM UrbanCode Deploy Client (udclient) task in conjection with the [addVersionFiles command](http://www.ibm.com/support/knowledgecenter/SS4GSP_6.2.1/com.ibm.udeploy.api.doc/topics/udclient_addversionfiles.html)"
+      "helpMarkDown": "Optional file or directory to upload.  If a directory is specified, all contained files will be uploaded.  [Variables](https://www.visualstudio.com/docs/build/define/variables) might be helpful here, e.g. $(System.DefaultWorkingDirectory) For more upload options, use the IBM UrbanCode Deploy Client (udclient) task in conjunction with the [addVersionFiles command](http://www.ibm.com/support/knowledgecenter/SS4GSP_6.2.1/com.ibm.udeploy.api.doc/topics/udclient_addversionfiles.html)"
       },
       {
         "name": "udOptionalTag",
