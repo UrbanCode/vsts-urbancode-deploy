@@ -1,4 +1,4 @@
-# Integrate with IBM UrbanCode Deploy
+# Integrate with IBM&reg; UrbanCode Deploy
 This extension provides build tasks that enable you to integrate with IBM UrbanCode Deploy using the [Command-line client](http://www.ibm.com/support/knowledgecenter/SS4GSP_6.2.1/com.ibm.udeploy.reference.doc/topics/cli_ch.html).
 
 ## Create a IBM UrbanCode Deploy Connection
