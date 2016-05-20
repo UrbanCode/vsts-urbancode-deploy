@@ -1,10 +1,10 @@
 {
     "manifestVersion": 1,
     "id": "urbancode-deploy-build-extension",
-    "name": "IBM UrbanCode Deploy",
-    "version": "0.1.0",
+    "name": "Integrate with IBM&reg; UrbanCode Deploy",
+    "version": "0.1.1",
     "publisher": "ms-vsts",
-    "description": "IBM UrbanCode Deploy build extension to push applications to your IBM UrbanCode Deploy instance.",
+    "description": "Integration build extension to push your VSTS applications to your IBM UrbanCode Deploy instance.",
     "public": true,
     "categories": [
         "Build and release"
