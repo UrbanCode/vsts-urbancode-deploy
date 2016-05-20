@@ -4,7 +4,7 @@
     "name": "Integrate with IBM UrbanCode Deploy",
     "version": "0.1.1",
     "publisher": "ms-vsts",
-    "description": "Integration build extension to push your VSTS applications to your IBM UrbanCode Deploy instance.",
+    "description": "Upload your VSTS/TFS artifacts to your IBM UrbanCode Deploy instance during your build using this build extension.",
     "public": true,
     "categories": [
         "Build and release"
