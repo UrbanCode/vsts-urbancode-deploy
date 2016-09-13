@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "urbancode-deploy-build-extension",
     "name": "Integrate with IBM UrbanCode Deploy",
-    "version": "0.1.1",
+    "version": "0.1.3",
     "publisher": "ms-vsts",
     "description": "Upload your VSTS/TFS artifacts to your IBM UrbanCode Deploy instance during your build using this build extension.",
     "public": true,
