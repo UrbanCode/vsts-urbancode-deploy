@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "urbancode-deploy-build-extension",
     "name": "IBM UrbanCode Deploy",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "publisher": "ms-vsts",
     "description": "Upload build artifacts to IBM UrbanCode Deploy",
     "public": true,

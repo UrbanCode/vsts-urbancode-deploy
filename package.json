@@ -37,8 +37,8 @@
     "semver": "^4.3.3",
     "shelljs": "^0.3.0",
     "through2": "^0.6.3",
-    "validator": "^3.33.0",
-    "vsts-task-lib": "^0.7.0"
+    "typescript": "^2.4.1",
+    "validator": "^3.33.0"
   },
   "dependencies": {
     "process": "^0.10.1",
