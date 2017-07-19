@@ -59,7 +59,7 @@ gulp.task('compileTasks', ['clean'], function (cb) {
     var tasksPath = path.join(__dirname, 'Extension', '**/*.ts');
     return gulp.src([tasksPath])
         .pipe(tsc())
-        .pipe(gulp.dest(path.join(_buildRoot, 'Extension')));
+        .pipe(gulp.dest(_buildRoot));
 });
 
 gulp.task('copyMdFiles', function(cb) {
