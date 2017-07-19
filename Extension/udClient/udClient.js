@@ -1,11 +1,10 @@
+"use strict";
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
-"use strict";
-/// <reference path="../../definitions/node.d.ts"/>
-/// <reference path="../../definitions/vsts-task-lib.d.ts" />
-var tl = require('vsts-task-lib/task');
-var path = require('path');
-var fs = require('fs');
+exports.__esModule = true;
+var tl = require("vsts-task-lib/task");
+var path = require("path");
+var fs = require("fs");
 var onError = function (errMsg) {
     tl.error(errMsg);
     tl.exit(1);
