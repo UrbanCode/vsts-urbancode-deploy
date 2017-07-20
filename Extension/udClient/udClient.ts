@@ -3,11 +3,12 @@
 
 import tl = require('vsts-task-lib/task');
 import path = require('path');
+import process = require('process');
 import fs = require('fs');
 
 var onError = function (errMsg) {
     tl.error(errMsg);
-    tl.exit(1);
+    process.exit(1);
 }
 
 var serverEndpoint = tl.getInput('serverEndpoint', true);
@@ -113,7 +114,7 @@ if (typeof javaHome == "undefined") {
 tl.debug('java location = ' + javaLocation);
 
 function runUdClient(globalArgs: string [], args: string[]) {
-    var java = tl.createToolRunner(javaLocation);
+    var java = tl.tool(javaLocation);
     java.arg('-jar');
     java.arg(udClientJarPath);
     //udClient args

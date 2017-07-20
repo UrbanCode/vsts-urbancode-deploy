@@ -1,13 +1,16 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+//import * as tl from 'vsts-task-lib/task';
 import tl = require('vsts-task-lib/task');
 import path = require('path');
+import process = require('process');
 import fs = require('fs');
 
 var onError = function (errMsg) {
     tl.error(errMsg);
-    tl.exit(1);
+    tl.setResult(tl.TaskResult.Failed, "Build failed."); // tl.exit sets the step result but does not stop execution
+    process.exit(1);
 }
 
 var serverEndpoint = tl.getInput('serverEndpoint', true);
@@ -113,7 +116,7 @@ if (typeof javaHome == "undefined") {
 tl.debug('java location = ' + javaLocation);
 
 function runUdClient(globalArgs: string[], args: string[]) {
-    var java = tl.createToolRunner(javaLocation);
+    var java = tl.tool(javaLocation);
     java.arg('-jar');
     java.arg(udClientJarPath);
     //udClient args
