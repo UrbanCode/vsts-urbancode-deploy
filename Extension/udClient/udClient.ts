@@ -142,7 +142,7 @@ function runUdClient(globalArgs: string [], args: string[]) {
     }
     var execResult = java.execSync();
     if (execResult.code != tl.TaskResult.Succeeded) {
-        let message:string = (execResult.error && execResult.error.message) ? execResult.error.message : 'Unspecified error';
+        let message:string = (execResult.error && execResult.error.message) ? execResult.error.message : 'UrbanCode reported failure: see output for details';
         tl.setResult(tl.TaskResult.Failed, message);
     }
 }
