@@ -57,14 +57,14 @@ gulp.task('compileTasks', ['clean'], function (cb) {
     }
 
     var tasksPath = path.join(__dirname, 'Extension', '**/*.ts');
-    return gulp.src([tasksPath, 'definitions/*.d.ts'])
+    return gulp.src([tasksPath])
         .pipe(tsc())
-        .pipe(gulp.dest(path.join(__dirname, 'Extension')));
+        .pipe(gulp.dest(_buildRoot));
 });
 
 gulp.task('copyMdFiles', function(cb) {
     return gulp.src(path.join(__dirName, '*.md'))
-    .pipe(gulp.dest(path.join(__dirname)));
+    .pipe(gulp.dest(path.join(_buildRoot)));
 })
 
 gulp.task('compile', ['compileTasks', 'copyMdFiles']);

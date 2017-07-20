@@ -1,16 +1,14 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-/// <reference path="../../definitions/node.d.ts"/>
-/// <reference path="../../definitions/vsts-task-lib.d.ts" />
-
 import tl = require('vsts-task-lib/task');
 import path = require('path');
+import process = require('process');
 import fs = require('fs');
 
 var onError = function (errMsg) {
     tl.error(errMsg);
-    tl.exit(1);
+    process.exit(1);
 }
 
 var serverEndpoint = tl.getInput('serverEndpoint', true);
@@ -116,7 +114,7 @@ if (typeof javaHome == "undefined") {
 tl.debug('java location = ' + javaLocation);
 
 function runUdClient(globalArgs: string [], args: string[]) {
-    var java = tl.createToolRunner(javaLocation);
+    var java = tl.tool(javaLocation);
     java.arg('-jar');
     java.arg(udClientJarPath);
     //udClient args
@@ -144,7 +142,8 @@ function runUdClient(globalArgs: string [], args: string[]) {
     }
     var execResult = java.execSync();
     if (execResult.code != tl.TaskResult.Succeeded) {
-        tl.setResult(tl.TaskResult.Failed, execResult.error.message);
+        let message:string = (execResult.error && execResult.error.message) ? execResult.error.message : 'UrbanCode reported failure: see output for details';
+        tl.setResult(tl.TaskResult.Failed, message);
     }
 }
 
