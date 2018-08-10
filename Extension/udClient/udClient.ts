@@ -36,7 +36,7 @@ var workingDir = tl.getInput('workingDirectory', true);
 
 var udClientPath; // loaded below
 var udClientLocation = tl.getInput('udClientLocation');
-if (udClientLocation != tl.getVariable('build.sourcesDirectory')) {
+if (udClientLocation != tl.getVariable('System.DefaultWorkingDirectory')) {
     //custom tool location for udclient was specified
     tl.debug('udclient location specified explicitly by task: ' + udClientLocation);
     udClientPath = udClientLocation;
